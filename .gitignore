@@ -1,0 +1,17 @@
+# Ignore dependencies
+/node_modules/
+# Ignore Next.js build and cache files
+/.next/
+/out/
+# Ignore environment variables
+.env*
+# Ignore log files and debugging outputs
+npm-debug.log*
+yarn-debug.log*
+# Ignore local IDE settings
+.vscode/
+.idea/
+# Ignore testing coverage reports
+/coverage/
+# Ignore MacOS system files
+.DS_Store
