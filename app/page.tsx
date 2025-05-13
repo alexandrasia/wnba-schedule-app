@@ -1,10 +1,13 @@
-import Image from 'next/image'
+import ScheduleContainer from "@/components/ScheduleContainer";
+import {IGameDate} from "../types/LeagueSchedule";
 
-export default function Page() {
+export default async function Page() {
+  const data = await fetch('https://www.wnba.com/api/schedule?season=2025&regionId=1');
+  const json = await data.json();
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-      <Image src="/basketball.jpg" alt="Basketball" width={100} height={100} />
-      <h1>Hello, wnba-schedule-app!</h1>
-    </div>
+    <>
+      <h1 style={{textAlign: 'center', marginTop: '50px'}}>WNBA Calendar App</h1>
+      <ScheduleContainer gameDates={json.leagueSchedule.gameDates as IGameDate[]}/>
+    </>
   );
-    }
+};
