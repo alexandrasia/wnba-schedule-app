@@ -7,7 +7,7 @@ import { IBroadcaster } from "../types/LeagueSchedule";
 type TableRowSelection<T extends object = object> =
   TableProps<T>["rowSelection"];
 
-interface DataType {
+interface GameEvent {
   key: React.Key;
   date: string;
   time: string;
@@ -17,7 +17,7 @@ interface DataType {
   broadCast: string;
 }
 
-const columns: TableColumnsType<DataType> = [
+const columns: TableColumnsType<GameEvent> = [
   { title: "Date", dataIndex: "date" },
   { title: "Time", dataIndex: "time" },
   { title: "Home Team", dataIndex: "homeTeamName" },
@@ -26,7 +26,7 @@ const columns: TableColumnsType<DataType> = [
   { title: "Broadcast", dataIndex: "broadCast" },
 ];
 
-const formatGameItems = (gameDates: any[]): DataType[] => {
+const formatGameItems = (gameDates: any[]): GameEvent[] => {
   return gameDates.flatMap((gameDate) =>
     gameDate.games.map((gameItem: any) => ({
       key: gameItem.gameId,
@@ -49,7 +49,6 @@ const TableContainer = () => {
   const { gameItems } = useGameSchedule();
 
   const dataSource = formatGameItems(gameItems);
-  console.log("gameItems: ", gameItems);
 
   const start = () => {
     setLoading(true);
@@ -61,11 +60,10 @@ const TableContainer = () => {
   };
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
   };
 
-  const rowSelection: TableRowSelection<DataType> = {
+  const rowSelection: TableRowSelection<GameEvent> = {
     selectedRowKeys,
     onChange: onSelectChange,
   };
@@ -83,9 +81,11 @@ const TableContainer = () => {
         >
           Reload
         </Button>
-        {hasSelected ? `Selected ${selectedRowKeys.length} items` : null}
+        {hasSelected
+          ? `Selected game IDs: ${selectedRowKeys.join(", ")}`
+          : null}
       </Flex>
-      <Table<DataType>
+      <Table<GameEvent>
         rowSelection={rowSelection}
         columns={columns}
         dataSource={dataSource}
