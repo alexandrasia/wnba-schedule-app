@@ -3,6 +3,7 @@ import { Button, Flex, Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import { useGameSchedule } from "../contexts/GameScheduleContext";
 import { IBroadcaster } from "../types/LeagueSchedule";
+import { useSelectedGames } from "../contexts/SelectedGamesContext";
 
 type TableRowSelection<T extends object = object> =
   TableProps<T>["rowSelection"];
@@ -43,7 +44,7 @@ const formatGameItems = (gameDates: any[]): GameEvent[] => {
 };
 
 const TableContainer = () => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const { selectedGamesKeys, setSelectedGamesKeys } = useSelectedGames();
   const [loading, setLoading] = useState(false);
 
   const { gameItems } = useGameSchedule();
@@ -54,21 +55,21 @@ const TableContainer = () => {
     setLoading(true);
     // ajax request after empty completing
     setTimeout(() => {
-      setSelectedRowKeys([]);
+      setSelectedGamesKeys([]);
       setLoading(false);
     }, 1000);
   };
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    setSelectedRowKeys(newSelectedRowKeys);
+    setSelectedGamesKeys(newSelectedRowKeys);
   };
 
   const rowSelection: TableRowSelection<GameEvent> = {
-    selectedRowKeys,
+    selectedRowKeys: selectedGamesKeys,
     onChange: onSelectChange,
   };
 
-  const hasSelected = selectedRowKeys.length > 0;
+  const hasSelected = selectedGamesKeys.length > 0;
 
   return (
     <div className="flex-2 min-w-0">
@@ -83,7 +84,7 @@ const TableContainer = () => {
             Reload
           </Button>
           {hasSelected
-            ? `Selected game IDs: ${selectedRowKeys.join(", ")}`
+            ? `Selected game IDs: ${selectedGamesKeys.join(", ")}`
             : null}
         </Flex>
         <Table<GameEvent>
