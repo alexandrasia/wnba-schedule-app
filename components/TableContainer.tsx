@@ -71,26 +71,28 @@ const TableContainer = () => {
   const hasSelected = selectedRowKeys.length > 0;
 
   return (
-    <Flex gap="middle" vertical>
-      <Flex align="center" gap="middle">
-        <Button
-          type="primary"
-          onClick={start}
-          disabled={!hasSelected}
-          loading={loading}
-        >
-          Reload
-        </Button>
-        {hasSelected
-          ? `Selected game IDs: ${selectedRowKeys.join(", ")}`
-          : null}
+    <div className="flex-2 min-w-0">
+      <Flex gap="middle" vertical>
+        <Flex align="center" gap="middle">
+          <Button
+            type="primary"
+            onClick={start}
+            disabled={!hasSelected}
+            loading={loading}
+          >
+            Reload
+          </Button>
+          {hasSelected
+            ? `Selected game IDs: ${selectedRowKeys.join(", ")}`
+            : null}
+        </Flex>
+        <Table<GameEvent>
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={dataSource}
+        />
       </Flex>
-      <Table<GameEvent>
-        rowSelection={rowSelection}
-        columns={columns}
-        dataSource={dataSource}
-      />
-    </Flex>
+    </div>
   );
 };
 

@@ -15,9 +15,7 @@ const ScheduleContainer = ({ gameDates }: ScheduleContainerProps) => {
   return (
     <GameScheduleProvider initialGameItems={gameDates}>
       <SelectedGamesProvider>
-        <div
-          style={{ display: "flex", gap: 30, justifyContent: "space-between" }}
-        >
+        <div className="flex gap-20 justify-between w-full">
           <CalendarContainer />
           <TableContainer />
         </div>
