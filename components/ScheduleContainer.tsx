@@ -15,11 +15,12 @@ const ScheduleContainer = ({ gameDates }: ScheduleContainerProps) => {
   return (
     <GameScheduleProvider initialGameItems={gameDates}>
       <SelectedGamesProvider>
-        <CalendarContainer />
-        <Button type="primary" onClick={() => console.log("Button clicked!")}>
-          Button
-        </Button>
-        <TableContainer />
+        <div
+          style={{ display: "flex", gap: 30, justifyContent: "space-between" }}
+        >
+          <CalendarContainer />
+          <TableContainer />
+        </div>
       </SelectedGamesProvider>
     </GameScheduleProvider>
   );
