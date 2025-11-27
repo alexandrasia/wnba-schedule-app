@@ -31,3 +31,14 @@ Chronological log of completed work on the WNBA Schedule App.
 - Created `TODO.md` - upcoming tasks and open questions
 - Refactored `CLAUDE.md` - removed temporal sections, added documentation workflow
 - Established three-file documentation pattern for better organization
+
+### [DevEx] Development Toolbar with Mock Data Toggle
+- Created Linear-style dev toolbar for toggling between mock and real API data
+- Generated `test/wnba-schedule-future.json` with future-dated mock schedule (December 2025 - April 2026)
+- Updated `lib/api.ts` to support both mock and real data sources via cookies
+- Built `DevToolbarContext` for managing toolbar state and cookie persistence
+- Implemented `DevToolbar` component with clean, minimal design
+- Uses cookies to communicate preference from client to server (preserves SSR)
+- Only renders in development mode (production-safe)
+- Added mock file selector to toggle between past (May 2025) and future (Dec 2025) mock data
+- Created `scripts/generate-future-mock.js` for generating future-dated mock files

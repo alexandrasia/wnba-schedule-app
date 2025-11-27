@@ -1,5 +1,7 @@
 import React from "react";
 import "./globals.css";
+import { DevToolbarProvider } from "@/contexts/DevToolbarContext";
+import DevToolbar from "@/components/DevToolbar";
 
 export default function RootLayout({
   children,
@@ -8,7 +10,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <DevToolbarProvider>
+          {children}
+          <DevToolbar />
+        </DevToolbarProvider>
+      </body>
     </html>
   );
 }

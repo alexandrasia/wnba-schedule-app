@@ -27,8 +27,10 @@
     "paths": {
       "@/styles/*": ["styles/*"],
       "@/components/*": ["components/*"],
+      "@/contexts/*": ["contexts/*"],
       "@/lib/*": ["lib/*"],
-      "@/types/*": ["types/*"]
+      "@/types/*": ["types/*"],
+      "@/test/*": ["test/*"]
     }
   },
   "include": [

@@ -51,6 +51,23 @@ A web application for viewing and interacting with WNBA game schedules. Users ca
 - **Auto-format hook**: `.claude/settings.json` contains a `post-write` hook that runs Prettier on all TypeScript, JavaScript, JSON, Markdown, and CSS files after Claude makes edits
 - No manual formatting needed - files are automatically formatted when Claude modifies them
 
+### Dev Toolbar
+- **Purpose**: Toggle between mock and real API data during development
+- **Location**: Floating bottom-right corner (Linear-style design)
+- **How it works**:
+  - Uses cookies to communicate preference from client to server
+  - Preserves SSR benefits while allowing easy data source switching
+  - Only renders in development mode (production-safe)
+- **Mock data files**:
+  - `test/wnba-schedule-example.json` - Past dates (May 2025)
+  - `test/wnba-schedule-future.json` - Future dates (December 2025 - April 2026)
+- **Features**:
+  - **Data Source Toggle**: Switch between "Mock Data" and "Real API"
+  - **Mock File Selector**: When using mock data, choose between "Past" and "Future" dates
+  - Both preferences persist across page refreshes via cookies
+- **Default**: Real API in both development and production
+- **Generating custom mock data**: Run `node scripts/generate-future-mock.js` to regenerate future-dated mock file (modify script for custom date ranges)
+
 ### TypeScript Configuration
 - Path aliases configured in `tsconfig.json`:
   - `@/components/*` → `components/*`
