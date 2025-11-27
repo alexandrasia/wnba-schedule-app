@@ -1,0 +1,15 @@
+{
+  "alwaysThinkingEnabled": true,
+  "hooks": {
+    "post-write": [
+      {
+        "pattern": "**/*.{ts,tsx,js,jsx}",
+        "command": "npx prettier --write {filepath}"
+      },
+      {
+        "pattern": "**/*.{json,md,css}",
+        "command": "npx prettier --write {filepath}"
+      }
+    ]
+  }
+}
