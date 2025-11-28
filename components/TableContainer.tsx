@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Button, Flex, Table } from "antd";
-import type { TableColumnsType, TableProps } from "antd";
-import { useGameSchedule } from "../contexts/GameScheduleContext";
-import { IBroadcaster } from "../types/LeagueSchedule";
-import { useSelectedGames } from "../contexts/SelectedGamesContext";
-
-type TableRowSelection<T extends object = object> =
-  TableProps<T>["rowSelection"];
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
+import { Loader2 } from "lucide-react";
+import { useGameSchedule } from "@/contexts/GameScheduleContext";
+import { IBroadcaster } from "@/types/LeagueSchedule";
+import { useSelectedGames } from "@/contexts/SelectedGamesContext";
 
 interface GameEvent {
   key: React.Key;
@@ -17,15 +17,6 @@ interface GameEvent {
   notes: string;
   broadCast: string;
 }
-
-const columns: TableColumnsType<GameEvent> = [
-  { title: "Date", dataIndex: "date" },
-  { title: "Time", dataIndex: "time" },
-  { title: "Home Team", dataIndex: "homeTeamName" },
-  { title: "Away Team", dataIndex: "awayTeamName" },
-  { title: "Notes", dataIndex: "notes" },
-  { title: "Broadcast", dataIndex: "broadCast" },
-];
 
 const formatGameItems = (gameDates: any[]): GameEvent[] => {
   return gameDates.flatMap((gameDate) =>
@@ -46,53 +37,95 @@ const formatGameItems = (gameDates: any[]): GameEvent[] => {
 const TableContainer = () => {
   const { selectedGamesKeys, setSelectedGamesKeys } = useSelectedGames();
   const [loading, setLoading] = useState(false);
-
   const { gameItems } = useGameSchedule();
-
   const dataSource = formatGameItems(gameItems);
 
   const start = () => {
     setLoading(true);
-    // ajax request after empty completing
     setTimeout(() => {
       setSelectedGamesKeys([]);
       setLoading(false);
     }, 1000);
   };
 
-  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    setSelectedGamesKeys(newSelectedRowKeys);
+  const toggleGameSelection = (gameKey: React.Key) => {
+    setSelectedGamesKeys((prev) =>
+      prev.includes(gameKey)
+        ? prev.filter((key) => key !== gameKey)
+        : [...prev, gameKey],
+    );
   };
 
-  const rowSelection: TableRowSelection<GameEvent> = {
-    selectedRowKeys: selectedGamesKeys,
-    onChange: onSelectChange,
-  };
+  const isGameSelected = (gameKey: React.Key) =>
+    selectedGamesKeys.includes(gameKey);
 
   const hasSelected = selectedGamesKeys.length > 0;
 
   return (
     <div className="flex-2 min-w-0">
-      <Flex gap="middle" vertical>
-        <Flex align="center" gap="middle">
-          <Button
-            type="primary"
-            onClick={start}
-            disabled={!hasSelected}
-            loading={loading}
-          >
-            Reload
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center gap-4">
+          <Button onClick={start} disabled={!hasSelected || loading}>
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Loading...
+              </>
+            ) : (
+              "Reload"
+            )}
           </Button>
-          {hasSelected
-            ? `Selected game IDs: ${selectedGamesKeys.join(", ")}`
-            : null}
-        </Flex>
-        <Table<GameEvent>
-          rowSelection={rowSelection}
-          columns={columns}
-          dataSource={dataSource}
-        />
-      </Flex>
+          {hasSelected && (
+            <span className="text-sm text-muted-foreground">
+              Selected game IDs: {selectedGamesKeys.join(", ")}
+            </span>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {dataSource.map((game) => {
+            const selected = isGameSelected(game.key);
+            return (
+              <Card
+                key={game.key}
+                className={`cursor-pointer transition-all hover:shadow-md ${
+                  selected
+                    ? "border-primary ring-2 ring-primary ring-offset-2"
+                    : ""
+                }`}
+                onClick={() => toggleGameSelection(game.key)}
+              >
+                <CardHeader className="pb-3">
+                  <div className="flex items-start justify-between">
+                    <CardTitle className="text-base">
+                      {game.awayTeamName} @ {game.homeTeamName}
+                    </CardTitle>
+                    <Checkbox
+                      checked={selected}
+                      onCheckedChange={() => toggleGameSelection(game.key)}
+                      onClick={(e) => e.stopPropagation()}
+                    />
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <div className="text-sm">
+                    <span className="font-medium">Date:</span> {game.date}
+                  </div>
+                  <div className="text-sm">
+                    <span className="font-medium">Time:</span> {game.time}
+                  </div>
+                  <div className="flex gap-2 flex-wrap">
+                    <Badge variant="secondary">{game.notes}</Badge>
+                    {game.broadCast && (
+                      <Badge variant="outline">{game.broadCast}</Badge>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };

@@ -2,6 +2,33 @@
 
 Chronological log of completed work on the WNBA Schedule App.
 
+## 2025-11-28
+
+### [UI Library] Migration from Ant Design to Shadcn UI
+- **Complete UI library replacement**: Migrated from Ant Design 5.25 to Shadcn UI
+- **Shadcn setup**: Manually configured Shadcn with Tailwind v4 compatibility
+  - Created `components.json` configuration
+  - Created `lib/utils.ts` with cn() helper function
+  - Updated `tailwind.config.js` with Shadcn theme variables and animations
+  - Updated `app/globals.css` with CSS variables for theming (light/dark mode support)
+- **Component migrations**:
+  - `CalendarContainer.tsx`: Replaced Ant Design Calendar with Shadcn Calendar using Block 21 custom formatters pattern
+  - `TableContainer.tsx`: Complete rewrite - replaced Ant Design Table with Shadcn Card grid layout
+    - Implemented dual selection mechanism (checkbox + clickable card)
+    - Added visual feedback with border-primary ring effect on selection
+    - Responsive grid: 1 column (mobile), 2 columns (tablet), 3 columns (desktop)
+    - Custom loading state for Button with Loader2 icon
+  - `ScheduleContainer.tsx`: Removed dead Ant Design Button import
+  - `app/page.tsx`: Removed React 19 compatibility patch import
+- **Package cleanup**: Removed `antd` and `@ant-design/v5-patch-for-react-19` dependencies
+- **New dependencies added**:
+  - Shadcn core: `class-variance-authority`, `clsx`, `tailwind-merge`, `tailwindcss-animate`
+  - Shadcn components: `@radix-ui/react-checkbox`, `@radix-ui/react-slot`, `react-day-picker`
+  - Utilities: `date-fns`, `lucide-react`
+- **Performance improvement**: Bundle size reduced from 222 kB to 36.6 kB (84% reduction)
+- **Fixed Next.js 15 compatibility**: Updated `lib/api.ts` to handle async cookies() function
+- **Testing**: Verified successful build and dev server startup with no errors
+
 ## 2025-11-27
 
 ### [DevEx] Prettier Auto-formatting

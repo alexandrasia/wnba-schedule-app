@@ -9,16 +9,17 @@ A web application for viewing and interacting with WNBA game schedules. Users ca
 ## Tech Stack
 
 - **Framework**: Next.js 15.3 (App Router)
-- **React**: 19.1 (with Ant Design v5 patch for React 19 compatibility)
-- **UI Library**: Ant Design 5.25
+- **React**: 19.1
+- **UI Library**: Shadcn UI (Tailwind-based component library)
 - **Styling**: Tailwind CSS 4.1
-- **Date Handling**: Day.js 1.11
+- **Date Handling**: Day.js 1.11 (lightweight date library), date-fns 4.1 (for calendar formatting)
 - **Language**: TypeScript 5.8
 
 ## Architecture & Key Files
 
 ### Components
-- `CalendarContainer.tsx` - Main calendar component (currently being developed)
+- `CalendarContainer.tsx` - Calendar view using Shadcn Calendar with custom formatters
+- `TableContainer.tsx` - Displays games as selectable Card components in responsive grid
 - `ScheduleContainer.tsx` - Container for schedule management
 
 ### Context/State Management
@@ -33,12 +34,14 @@ A web application for viewing and interacting with WNBA game schedules. Users ca
 ## Development Notes
 
 ### Important Decisions
-- Using Ant Design Calendar component as the base calendar UI
+- Using Shadcn UI components (copy/paste approach) for customizable, Tailwind-based UI
+- Shadcn Calendar with custom formatters for calendar view
+- Game cards with dual selection mechanism (checkbox + clickable card)
 - Managing selected games through React Context to avoid prop drilling
 - Day.js for date manipulation (lighter alternative to Moment.js)
 
 ### Things to Know
-- The project uses React 19, which requires a compatibility patch for Ant Design (`@ant-design/v5-patch-for-react-19`)
+- The project uses React 19 with Shadcn UI (no compatibility patches needed)
 - Main git branch is `main`
 - **Data Source**: WNBA schedule data is fetched from `https://www.wnba.com/api/schedule`
 - **SSL Certificate Workaround**: `.env.local` contains `NODE_TLS_REJECT_UNAUTHORIZED=0` for WSL development (not used in production)
@@ -94,4 +97,4 @@ This separation keeps each file focused and prevents CLAUDE.md from becoming clu
 
 ---
 
-**Last Updated**: 2025-11-27
+**Last Updated**: 2025-11-28

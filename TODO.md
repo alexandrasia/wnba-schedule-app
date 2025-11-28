@@ -1,18 +1,18 @@
 # TODO
 
 ## High Priority
-- [ ] Implement game selection functionality
 - [ ] Add error handling for failed API requests
-- [ ] Test calendar component with real data
+- [ ] Integrate calendar with game data (show game indicators on dates)
 
 ## Future Enhancements
 - [ ] Add caching for API responses
-- [ ] Create additional views beyond calendar view
 - [ ] Add filtering/search capabilities for games
-- [ ] Implement responsive design for mobile devices
-- [ ] Add loading states and skeleton screens
+- [ ] Enhance calendar to show game count per date
+- [ ] Add game status badges (Live, Final, Scheduled)
+- [ ] Add dark mode toggle (Shadcn supports this out of the box)
+- [ ] Add animations for card selection/hover states
 
 ## Questions to Resolve
-- What should happen when a user selects a game?
+- What should happen when a user selects a game? (Display game details, add to favorites, etc.)
 - Should we implement server-side caching for API responses?
-- Are there other views needed besides the calendar view?
+- Are there other views needed besides the calendar and card grid views?

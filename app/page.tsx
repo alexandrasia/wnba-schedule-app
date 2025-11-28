@@ -1,6 +1,5 @@
 import ScheduleContainer from "@/components/ScheduleContainer";
 import { fetchWNBASchedule } from "@/lib/api";
-import "@ant-design/v5-patch-for-react-19";
 
 export default async function Page() {
   const leagueSchedule = await fetchWNBASchedule("2025");

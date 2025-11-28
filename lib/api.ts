@@ -29,8 +29,8 @@ type MockFile = "past" | "future";
  * Gets the current data source from cookies
  * @returns The data source ("mock" or "real")
  */
-function getDataSource(): DataSource {
-  const cookieStore = cookies();
+async function getDataSource(): Promise<DataSource> {
+  const cookieStore = await cookies();
   const dataSource = cookieStore.get("wnba-dev-data-source")?.value;
   return (dataSource as DataSource) || "real";
 }
@@ -39,8 +39,8 @@ function getDataSource(): DataSource {
  * Gets the current mock file preference from cookies
  * @returns The mock file ("past" or "future")
  */
-function getMockFilePreference(): MockFile {
-  const cookieStore = cookies();
+async function getMockFilePreference(): Promise<MockFile> {
+  const cookieStore = await cookies();
   const mockFile = cookieStore.get("wnba-dev-mock-file")?.value;
   return (mockFile as MockFile) || "future";
 }
@@ -49,11 +49,11 @@ function getMockFilePreference(): MockFile {
  * Gets mock schedule data
  * @returns Mock league schedule data based on cookie preference
  */
-function getMockSchedule(): ILeagueSchedule {
-  const mockFilePreference = getMockFilePreference();
+async function getMockSchedule(): Promise<ILeagueSchedule> {
+  const mockFilePreference = await getMockFilePreference();
   const mockData = mockFilePreference === "future" ? mockDataFuture : mockDataPast;
   console.log(`[API] Using ${mockFilePreference} mock data`);
-  return mockData.leagueSchedule as ILeagueSchedule;
+  return mockData.leagueSchedule as unknown as ILeagueSchedule;
 }
 
 /**
@@ -70,9 +70,9 @@ export async function fetchWNBASchedule(
 ): Promise<ILeagueSchedule> {
   // Check if we should use mock data (development only)
   if (process.env.NODE_ENV === "development") {
-    const dataSource = getDataSource();
+    const dataSource = await getDataSource();
     if (dataSource === "mock") {
-      return getMockSchedule();
+      return await getMockSchedule();
     }
   }
 
