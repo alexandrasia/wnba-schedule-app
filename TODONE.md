@@ -4,6 +4,26 @@ Chronological log of completed work on the WNBA Schedule App.
 
 ## 2025-11-28
 
+### [Dependencies] Package Cleanup & Major Upgrades
+- **Removed unused package**: `dayjs` ^1.11.13 (project uses `date-fns` instead)
+- **Major version upgrades**:
+  - Next.js: 15.3.2 → 16.0.5 (now using Turbopack for faster builds)
+  - eslint-config-next: 15.3.2 → 16.0.5 (matched to Next.js version)
+  - @types/node: 22.15.3 → 24.10.1
+- **Minor/patch upgrades** via `npm update`:
+  - React: 19.1.0 → 19.2.0
+  - React-DOM: 19.1.0 → 19.2.0
+  - TypeScript: 5.8.3 → 5.9.3
+  - Prettier: 3.5.3 → 3.7.2
+  - Tailwind CSS: 4.1.11 → 4.1.17
+  - @tailwindcss/postcss: 4.1.11 → 4.1.17
+  - @types/react: 19.1.2 → 19.2.7
+  - @typescript-eslint/eslint-plugin: 8.32.1 → 8.48.0
+  - @typescript-eslint/parser: 8.32.1 → 8.48.0
+  - ESLint: 9.26.0 → 9.39.1
+- **Testing**: Build and dev server successful with no breaking changes
+- **Documentation**: Updated CLAUDE.md with new package versions and removed dayjs references
+
 ### [UI Library] Migration from Ant Design to Shadcn UI
 - **Complete UI library replacement**: Migrated from Ant Design 5.25 to Shadcn UI
 - **Shadcn setup**: Manually configured Shadcn with Tailwind v4 compatibility

@@ -8,12 +8,12 @@ A web application for viewing and interacting with WNBA game schedules. Users ca
 
 ## Tech Stack
 
-- **Framework**: Next.js 15.3 (App Router)
-- **React**: 19.1
+- **Framework**: Next.js 16.0 (App Router with Turbopack)
+- **React**: 19.2
 - **UI Library**: Shadcn UI (Tailwind-based component library)
 - **Styling**: Tailwind CSS 4.1
-- **Date Handling**: Day.js 1.11 (lightweight date library), date-fns 4.1 (for calendar formatting)
-- **Language**: TypeScript 5.8
+- **Date Handling**: date-fns 4.1 (for calendar formatting and date manipulation)
+- **Language**: TypeScript 5.9
 
 ## Architecture & Key Files
 
@@ -38,7 +38,7 @@ A web application for viewing and interacting with WNBA game schedules. Users ca
 - Shadcn Calendar with custom formatters for calendar view
 - Game cards with dual selection mechanism (checkbox + clickable card)
 - Managing selected games through React Context to avoid prop drilling
-- Day.js for date manipulation (lighter alternative to Moment.js)
+- date-fns for date manipulation and formatting
 
 ### Things to Know
 - The project uses React 19 with Shadcn UI (no compatibility patches needed)
@@ -97,4 +97,4 @@ This separation keeps each file focused and prevents CLAUDE.md from becoming clu
 
 ---
 
-**Last Updated**: 2025-11-28
+**Last Updated**: 2025-11-28 (Package upgrades: Next.js 16, React 19.2, TypeScript 5.9)

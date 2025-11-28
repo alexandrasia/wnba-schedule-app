@@ -17,7 +17,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "plugins": [
       {
         "name": "next"
@@ -25,19 +25,32 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/styles/*": ["styles/*"],
-      "@/components/*": ["components/*"],
-      "@/contexts/*": ["contexts/*"],
-      "@/lib/*": ["lib/*"],
-      "@/types/*": ["types/*"],
-      "@/test/*": ["test/*"]
+      "@/styles/*": [
+        "styles/*"
+      ],
+      "@/components/*": [
+        "components/*"
+      ],
+      "@/contexts/*": [
+        "contexts/*"
+      ],
+      "@/lib/*": [
+        "lib/*"
+      ],
+      "@/types/*": [
+        "types/*"
+      ],
+      "@/test/*": [
+        "test/*"
+      ]
     }
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
