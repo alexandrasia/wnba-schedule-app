@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext, useContext, useState } from "react";
 
 type SelectedGamesContextType = {
@@ -15,8 +17,6 @@ export const SelectedGamesProvider = ({
   children: React.ReactNode;
 }) => {
   const [selectedGamesKeys, setSelectedGamesKeys] = useState<React.Key[]>([]);
-
-  console.log("SelectedGamesKeys:", selectedGamesKeys);
 
   return (
     <SelectedGamesContext.Provider

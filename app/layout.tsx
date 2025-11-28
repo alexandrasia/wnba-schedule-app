@@ -1,6 +1,7 @@
 import React from "react";
 import "./globals.css";
 import { DevToolbarProvider } from "@/contexts/DevToolbarContext";
+import { SelectedGamesProvider } from "@/contexts/SelectedGamesContext";
 import DevToolbar from "@/components/DevToolbar";
 
 export default function RootLayout({
@@ -11,10 +12,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <DevToolbarProvider>
-          {children}
-          <DevToolbar />
-        </DevToolbarProvider>
+        <SelectedGamesProvider>
+          <DevToolbarProvider>
+            {children}
+            <DevToolbar />
+          </DevToolbarProvider>
+        </SelectedGamesProvider>
       </body>
     </html>
   );

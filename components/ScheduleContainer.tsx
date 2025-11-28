@@ -13,12 +13,10 @@ export type ScheduleContainerProps = {
 const ScheduleContainer = ({ gameDates }: ScheduleContainerProps) => {
   return (
     <GameScheduleProvider initialGameItems={gameDates}>
-      <SelectedGamesProvider>
-        <div className="flex gap-20 justify-between w-full">
-          <CalendarContainer />
-          <TableContainer />
-        </div>
-      </SelectedGamesProvider>
+      <div className="flex gap-20 justify-between w-full">
+        <CalendarContainer />
+        <TableContainer />
+      </div>
     </GameScheduleProvider>
   );
 };

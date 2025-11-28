@@ -1,6 +1,8 @@
 "use client";
 
 import { useDevToolbar } from "@/contexts/DevToolbarContext";
+import { X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function DevToolbar() {
   // Only render in development
@@ -12,110 +14,267 @@ export default function DevToolbar() {
 }
 
 function DevToolbarContent() {
-  const { dataSource, toggleDataSource, mockFile, setMockFile, isOpen, toggleOpen } =
-    useDevToolbar();
+  const {
+    dataSource,
+    toggleDataSource,
+    mockFile,
+    setMockFile,
+    isOpen,
+    toggleOpen,
+  } = useDevToolbar();
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div
+      style={{
+        position: "fixed",
+        bottom: "1rem",
+        right: "1rem",
+        zIndex: 9999,
+      }}
+    >
       {isOpen ? (
-        <div className="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden min-w-[280px]">
+        <div
+          style={{
+            backgroundColor: "rgba(28, 28, 30, 0.95)",
+            backdropFilter: "blur(12px)",
+            borderRadius: "12px",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            boxShadow:
+              "0 8px 32px rgba(0, 0, 0, 0.32), 0 0 0 0.5px rgba(255, 255, 255, 0.05)",
+            padding: "12px",
+            minWidth: "240px",
+          }}
+        >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-2 bg-gray-50 border-b border-gray-200">
-            <span className="text-xs font-medium text-gray-600">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "12px",
+            }}
+          >
+            <span
+              style={{
+                fontSize: "11px",
+                fontWeight: 600,
+                color: "rgba(255, 255, 255, 0.6)",
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
+              }}
+            >
               Dev Tools
             </span>
             <button
               onClick={toggleOpen}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
-              aria-label="Minimize"
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "rgba(255, 255, 255, 0.5)",
+                cursor: "pointer",
+                padding: "4px",
+                display: "flex",
+                alignItems: "center",
+                borderRadius: "4px",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "rgba(255, 255, 255, 0.8)";
+                e.currentTarget.style.backgroundColor =
+                  "rgba(255, 255, 255, 0.1)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "rgba(255, 255, 255, 0.5)";
+                e.currentTarget.style.backgroundColor = "transparent";
+              }}
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path d="M4 8h8" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
+              <X size={14} />
             </button>
           </div>
 
-          {/* Content */}
-          <div className="p-4 space-y-3">
-            {/* Data Source Toggle */}
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-sm text-gray-700">Data Source</span>
+          {/* Data Source Toggle */}
+          <div style={{ marginBottom: "8px" }}>
+            <div
+              style={{
+                fontSize: "11px",
+                color: "rgba(255, 255, 255, 0.5)",
+                marginBottom: "6px",
+                fontWeight: 500,
+              }}
+            >
+              Data Source
+            </div>
+            <div
+              style={{
+                display: "inline-flex",
+                backgroundColor: "rgba(255, 255, 255, 0.08)",
+                borderRadius: "8px",
+                padding: "2px",
+              }}
+            >
               <button
                 onClick={toggleDataSource}
-                className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
-                  dataSource === "mock"
-                    ? "bg-green-100 text-green-700 hover:bg-green-200"
-                    : "bg-blue-100 text-blue-700 hover:bg-blue-200"
-                }`}
+                style={{
+                  padding: "5px 12px",
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  border: "none",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  backgroundColor:
+                    dataSource === "real"
+                      ? "rgba(255, 255, 255, 0.15)"
+                      : "transparent",
+                  color:
+                    dataSource === "real"
+                      ? "rgba(255, 255, 255, 0.95)"
+                      : "rgba(255, 255, 255, 0.6)",
+                }}
               >
-                {dataSource === "mock" ? "Mock Data" : "Real API"}
+                Real API
+              </button>
+              <button
+                onClick={toggleDataSource}
+                style={{
+                  padding: "5px 12px",
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  border: "none",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  backgroundColor:
+                    dataSource === "mock"
+                      ? "rgba(138, 99, 210, 0.9)"
+                      : "transparent",
+                  color:
+                    dataSource === "mock"
+                      ? "rgba(255, 255, 255, 0.98)"
+                      : "rgba(255, 255, 255, 0.6)",
+                }}
+              >
+                Mock Data
               </button>
             </div>
+          </div>
 
-            {/* Mock File Selector - only show when using mock data */}
-            {dataSource === "mock" && (
-              <div className="flex items-center justify-between gap-3 pt-2 border-t border-gray-100">
-                <span className="text-sm text-gray-700">Mock File</span>
-                <div className="flex gap-1">
-                  <button
-                    onClick={() => setMockFile("past")}
-                    className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
-                      mockFile === "past"
-                        ? "bg-purple-100 text-purple-700"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                    }`}
-                  >
-                    Past
-                  </button>
-                  <button
-                    onClick={() => setMockFile("future")}
-                    className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
-                      mockFile === "future"
-                        ? "bg-purple-100 text-purple-700"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                    }`}
-                  >
-                    Future
-                  </button>
-                </div>
+          {/* Mock File Selector */}
+          {dataSource === "mock" && (
+            <div style={{ marginTop: "12px" }}>
+              <div
+                style={{
+                  fontSize: "11px",
+                  color: "rgba(255, 255, 255, 0.5)",
+                  marginBottom: "6px",
+                  fontWeight: 500,
+                }}
+              >
+                Period
               </div>
-            )}
-
-            {/* Status text */}
-            <div className="text-xs text-gray-500">
-              {dataSource === "mock"
-                ? `Using ${mockFile === "future" ? "future (Dec 2025)" : "past (May 2025)"} mock data`
-                : "Fetching from WNBA API"}
+              <div
+                style={{
+                  display: "inline-flex",
+                  backgroundColor: "rgba(255, 255, 255, 0.08)",
+                  borderRadius: "8px",
+                  padding: "2px",
+                  width: "100%",
+                }}
+              >
+                <button
+                  onClick={() => setMockFile("past")}
+                  style={{
+                    flex: 1,
+                    padding: "5px 12px",
+                    fontSize: "12px",
+                    fontWeight: 500,
+                    border: "none",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                    backgroundColor:
+                      mockFile === "past"
+                        ? "rgba(255, 255, 255, 0.15)"
+                        : "transparent",
+                    color:
+                      mockFile === "past"
+                        ? "rgba(255, 255, 255, 0.95)"
+                        : "rgba(255, 255, 255, 0.6)",
+                  }}
+                >
+                  Past
+                </button>
+                <button
+                  onClick={() => setMockFile("future")}
+                  style={{
+                    flex: 1,
+                    padding: "5px 12px",
+                    fontSize: "12px",
+                    fontWeight: 500,
+                    border: "none",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                    backgroundColor:
+                      mockFile === "future"
+                        ? "rgba(255, 255, 255, 0.15)"
+                        : "transparent",
+                    color:
+                      mockFile === "future"
+                        ? "rgba(255, 255, 255, 0.95)"
+                        : "rgba(255, 255, 255, 0.6)",
+                  }}
+                >
+                  Future
+                </button>
+              </div>
             </div>
+          )}
+
+          {/* Status */}
+          <div
+            style={{
+              marginTop: "12px",
+              padding: "6px 10px",
+              backgroundColor: "rgba(255, 255, 255, 0.06)",
+              borderRadius: "6px",
+              fontSize: "11px",
+              color: "rgba(255, 255, 255, 0.5)",
+              textAlign: "center",
+            }}
+          >
+            {dataSource === "mock"
+              ? `${mockFile === "future" ? "Dec 2025" : "May 2025"} data`
+              : "Live WNBA API"}
           </div>
         </div>
       ) : (
         <button
           onClick={toggleOpen}
-          className="bg-white rounded-full shadow-lg border border-gray-200 p-3 hover:shadow-xl transition-shadow"
-          aria-label="Open dev tools"
+          style={{
+            backgroundColor: "rgba(28, 28, 30, 0.95)",
+            backdropFilter: "blur(12px)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            borderRadius: "20px",
+            padding: "8px 14px",
+            fontSize: "11px",
+            fontWeight: 600,
+            color: "rgba(255, 255, 255, 0.7)",
+            cursor: "pointer",
+            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.24)",
+            textTransform: "uppercase",
+            letterSpacing: "0.5px",
+            transition: "all 0.2s",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "rgba(28, 28, 30, 1)";
+            e.currentTarget.style.color = "rgba(255, 255, 255, 0.9)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "rgba(28, 28, 30, 0.95)";
+            e.currentTarget.style.color = "rgba(255, 255, 255, 0.7)";
+          }}
         >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            stroke="currentColor"
-            className="text-gray-600"
-          >
-            <path
-              d="M6 9l4 4 4-4"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          Dev
         </button>
       )}
     </div>
