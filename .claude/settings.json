@@ -1,14 +1,15 @@
 {
   "alwaysThinkingEnabled": true,
   "hooks": {
-    "post-write": [
+    "PostToolUse": [
       {
-        "pattern": "**/*.{ts,tsx,js,jsx}",
-        "command": "npx prettier --write {filepath}"
-      },
-      {
-        "pattern": "**/*.{json,md,css}",
-        "command": "npx prettier --write {filepath}"
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx prettier --write {file_path}"
+          }
+        ]
       }
     ]
   }
