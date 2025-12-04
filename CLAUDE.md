@@ -24,7 +24,24 @@ A web application for viewing and interacting with WNBA game schedules. Users ca
 
 ### Context/State Management
 - `SelectedGamesContext` - Global state for tracking which games the user has selected
+- `ThemeContext` - Manages theme (light/dark/system) preferences
 - The app uses React Context for state management rather than external libraries like Redux
+
+### Theme System
+- **Architecture**: CSS variables + Tailwind CSS using Shadcn UI approach
+- **Color Format**: HSL (Hue Saturation Lightness) for easy manipulation
+- **File Structure**:
+  - `app/globals.css` - All color definitions and CSS variables
+  - `contexts/ThemeContext.tsx` - Theme state management
+  - `components/ThemeToggle.tsx` - UI toggle for light/dark/system
+- **Features**:
+  - Light/Dark mode with system preference detection
+  - Generic sports accent colors (maroon #8B1538) suitable for any league
+  - Improved dark mode aesthetics (background: 11% lightness)
+  - Clean, simplified theme system
+  - WCAG AAA contrast ratios in dark mode (19.5:1)
+- **Color Tokens**: 24 semantic CSS variables (background, foreground, primary, secondary, muted, accent, destructive, border, input, ring, card, popover)
+- **Customization**: Change colors in `globals.css` - fully documented with inline comments
 
 ### Patterns in Use
 - Custom hook: `useSelectedGames` - Accesses selected games from context
@@ -77,6 +94,13 @@ A web application for viewing and interacting with WNBA game schedules. Users ca
   - `@/lib/*` → `lib/*`
   - `@/types/*` → `types/*`
   - `@/styles/*` → `styles/*`
+  - `@/contexts/*` → `contexts/*`
+
+### Theme Development
+- **This project uses Tailwind v4 NOT v3**
+- **Modifying Colors**: Edit HSL values in `app/globals.css` `:root` (light) or `.dark` sections
+- **Color Documentation**: All color definitions and contrast ratios documented in `globals.css` with inline comments
+- **Testing Themes**: Use ThemeToggle component (top-right) to switch between light/dark/system modes
 
 ## Documentation Structure
 
@@ -92,9 +116,13 @@ When completing significant work:
 1. **Add to TODONE.md**: Create an entry with today's date and appropriate category tag (e.g., `[API]`, `[Components]`, `[DevEx]`)
 2. **Update TODO.md**: Remove completed items or add newly discovered tasks
 3. **Update CLAUDE.md**: Only when architectural decisions, patterns, or core tech stack changes
+4. **Update README.md**: Only when there are changes in how to run the app or when there are tech stack changes
 
 This separation keeps each file focused and prevents CLAUDE.md from becoming cluttered with temporal information.
 
 ---
 
-**Last Updated**: 2025-11-28 (Package upgrades: Next.js 16, React 19.2, TypeScript 5.9)
+**Last Updated**: 2025-12-04
+- Theme system simplification: Removed multi-league code, elevation utilities, and WNBA-specific branding
+- Replaced WNBA orange with generic sports maroon (#8B1538) suitable for all leagues
+- Reduced codebase by ~470 lines through aggressive cleanup

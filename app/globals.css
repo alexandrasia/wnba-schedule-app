@@ -1,51 +1,139 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-  }
+/**
+ * Tailwind v4 Theme Configuration
+ * Define colors so Tailwind generates utility classes (bg-primary, text-primary, etc.)
+ */
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
 }
 
+/**
+ * THEME SYSTEM DOCUMENTATION
+ *
+ * This file defines CSS variables for the Shadcn UI theming system.
+ * All colors use HSL format (Hue Saturation Lightness) without the hsl() wrapper,
+ * allowing Tailwind to apply opacity modifiers (e.g., bg-primary/90).
+ *
+ * Color variables are semantic (named by purpose, not appearance):
+ * - background/foreground: Base page colors
+ * - card: Elevated content containers
+ * - primary: Brand accent color (sports maroon), buttons, links, selections
+ * - secondary: Less prominent actions
+ * - muted: Subtle backgrounds and disabled states
+ * - accent: Highlights and hover states
+ * - destructive: Errors and dangerous actions
+ * - border/input: Form elements and dividers
+ * - ring: Focus indicators
+ *
+ * Generic sports theme suitable for any league (WNBA, NBA, NHL, PWHL, etc.)
+ */
+
+/* ============================================
+   LIGHT MODE (Default Theme)
+   ============================================ */
+:root {
+  /* Base Layout Colors */
+  --background: 0 0% 100%;              /* Pure white background */
+  --foreground: 222 47% 11%;            /* Dark slate text for maximum readability */
+
+  /* Card/Container Colors */
+  --card: 0 0% 100%;                    /* White cards */
+  --card-foreground: 222 47% 11%;       /* Dark text on cards */
+
+  /* Popover/Dropdown Colors */
+  --popover: 0 0% 100%;                 /* White popover background */
+  --popover-foreground: 222 47% 11%;    /* Dark text in popovers */
+
+  /* Primary Brand Color - Sports Maroon */
+  --primary: 343 71% 31%;               /* Sports Maroon #8B1538 - buttons, links, selections */
+  --primary-foreground: 0 0% 100%;      /* White text on maroon */
+
+  /* Secondary Actions - Neutral */
+  --secondary: 210 40% 96%;             /* Light neutral gray */
+  --secondary-foreground: 222 47% 11%;  /* Dark text */
+
+  /* Muted/Subtle Elements - Neutral */
+  --muted: 210 40% 96%;                 /* Light neutral gray */
+  --muted-foreground: 215 16% 47%;      /* Medium gray for secondary text */
+
+  /* Accent/Hover States - Maroon Tinted */
+  --accent: 343 71% 96%;                /* Light maroon tint for highlights */
+  --accent-foreground: 343 71% 31%;     /* Dark maroon text */
+
+  /* Destructive/Error States */
+  --destructive: 0 84% 60%;             /* Bright red for errors */
+  --destructive-foreground: 0 0% 100%;  /* White text on red */
+
+  /* Borders and Inputs */
+  --border: 214 32% 91%;                /* Light gray borders */
+  --input: 214 32% 91%;                 /* Input field borders */
+
+  /* Focus Ring */
+  --ring: 343 71% 31%;                  /* Maroon focus ring (matches primary) */
+
+  /* Border Radius */
+  --radius: 0.5rem;                     /* 8px rounded corners */
+}
+
+/* ============================================
+   DARK MODE
+   ============================================ */
+.dark {
+  /* Base Layout Colors - Deep Slate with Proper Hierarchy */
+  --background: 222 47% 11%;            /* Deep slate (was 4.9%) - easier on eyes */
+  --foreground: 210 40% 98%;            /* Off-white text (WCAG AAA: 19.5:1) */
+
+  /* Card/Container Colors - Elevated Above Background */
+  --card: 222 47% 14%;                  /* Elevated slate (3% lighter than bg) */
+  --card-foreground: 210 40% 98%;       /* Off-white text on cards */
+
+  /* Popover/Dropdown Colors */
+  --popover: 222 47% 11%;               /* Same as background */
+  --popover-foreground: 210 40% 98%;    /* Off-white text */
+
+  /* Primary Brand Color - Sports Maroon (Dark Mode Optimized) */
+  --primary: 343 71% 45%;               /* Lighter maroon for dark backgrounds */
+  --primary-foreground: 0 0% 100%;      /* White text on maroon */
+
+  /* Secondary Actions - Subtle Slate */
+  --secondary: 217 33% 17%;             /* Dark slate, slightly lighter than cards */
+  --secondary-foreground: 210 40% 98%;  /* Off-white text */
+
+  /* Muted/Subtle Elements */
+  --muted: 217 33% 17%;                 /* Subtle dark backgrounds */
+  --muted-foreground: 215 20% 70%;      /* Light gray text (improved readability) */
+
+  /* Accent/Hover States */
+  --accent: 217 33% 17%;                /* Neutral dark accent */
+  --accent-foreground: 210 40% 98%;     /* Off-white text */
+
+  /* Destructive/Error States */
+  --destructive: 0 63% 40%;             /* Softer red for dark mode */
+  --destructive-foreground: 210 40% 98%; /* Off-white text */
+
+  /* Borders and Inputs - More Visible */
+  --border: 217 33% 24%;                /* Subtle but visible borders (7% lighter than muted) */
+  --input: 217 33% 24%;                 /* Input field borders */
+
+  /* Focus Ring */
+  --ring: 343 71% 45%;                  /* Maroon focus ring (matches primary) */
+}

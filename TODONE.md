@@ -89,3 +89,32 @@ Chronological log of completed work on the WNBA Schedule App.
 - Only renders in development mode (production-safe)
 - Added mock file selector to toggle between past (May 2025) and future (Dec 2025) mock data
 - Created `scripts/generate-future-mock.js` for generating future-dated mock files
+
+## 2025-12-04
+
+### [Theme] Initial Theme System Implementation
+- **Clean, Simplified Theme System**: Implemented light/dark/system theme toggle
+  - Generic sports maroon accent color (#8B1538 / HSL 343° 71% 31%)
+  - Light mode: Dark maroon (31% lightness) for buttons, links, selections
+  - Dark mode: Lighter maroon (45% lightness) optimized for dark backgrounds
+  - Theme suitable for all sports leagues (WNBA, NBA, NHL, PWHL) without league-specific branding
+- **Theme Management**:
+  - Created `contexts/ThemeContext.tsx` for theme state management
+  - System theme detection with media query listener
+  - localStorage persistence for theme preference
+  - Proper hydration handling for Next.js SSR
+- **Components**:
+  - Created `components/ThemeToggle.tsx` - UI toggle for cycling through system/light/dark modes
+  - Fixed positioning using Tailwind classes instead of inline styles
+- **Styling**:
+  - Implemented 24 semantic CSS variables in `app/globals.css`
+  - HSL color format for opacity modifier support
+  - Well-documented color system with inline comments
+  - Dark mode with improved aesthetics (background: 11% lightness)
+  - WCAG AAA contrast ratios in dark mode (19.5:1)
+- **Tailwind v4 Configuration**:
+  - Added `@theme` directive for Tailwind CSS 4.x utility class generation
+  - Configured `tailwind.config.js` for Shadcn UI compatibility
+- **Documentation**: Updated `CLAUDE.md` with theme system architecture and usage
+- **Code Quality**: Clean, minimal implementation
+- **Testing**: Production build successful, TypeScript compilation passed, no runtime errors
