@@ -3,6 +3,8 @@
 # Ignore Next.js build and cache files
 /.next/
 /out/
+# Ignore TypeScript build info
+*.tsbuildinfo
 # Ignore environment variables
 .env*
 # Ignore log files and debugging outputs
