@@ -1,9 +1,7 @@
 "use client";
 
-import { GameScheduleProvider } from "../contexts/GameScheduleContext";
 import { IGameDate } from "../types/LeagueSchedule";
 import TableContainer from "@/components/TableContainer";
-import { SelectedGamesProvider } from "../contexts/SelectedGamesContext";
 import CalendarContainer from "@/components/CalendarContainer";
 
 export type ScheduleContainerProps = {
@@ -12,12 +10,10 @@ export type ScheduleContainerProps = {
 
 const ScheduleContainer = ({ gameDates }: ScheduleContainerProps) => {
   return (
-    <GameScheduleProvider initialGameItems={gameDates}>
-      <div className="flex gap-20 justify-between w-full">
-        <CalendarContainer />
-        <TableContainer />
-      </div>
-    </GameScheduleProvider>
+    <div className="flex gap-20 justify-between w-full px-8">
+      <CalendarContainer />
+      <TableContainer />
+    </div>
   );
 };
 

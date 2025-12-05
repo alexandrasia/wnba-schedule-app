@@ -1,6 +1,7 @@
+"use client";
+
 import React, { createContext, useState, useContext } from "react";
 import { IGameDate } from "../types/LeagueSchedule";
-
 
 interface GameScheduleContextType {
   gameItems: IGameDate[];
